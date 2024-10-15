@@ -3,9 +3,19 @@ GET localhost:8080/members
 Content-Type: application/json
 
 ### member 등록하기
-POST localhost:8080/members
+POST localhost:8080/member
 Content-Type: application/json
 
 {
   "name": "이해든"
 }
+
+### Article 저장
+POST localhost:8080/articles
+Content-Type: application/json
+
+{
+  "title" : "make blog",
+  "content" : "nothing content"
+}
+
