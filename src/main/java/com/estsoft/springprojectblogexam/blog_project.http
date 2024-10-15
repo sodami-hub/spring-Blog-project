@@ -1,0 +1,11 @@
+### member list 불러오기
+GET localhost:8080/members
+Content-Type: application/json
+
+### member 등록하기
+POST localhost:8080/members
+Content-Type: application/json
+
+{
+  "name": "이해든"
+}

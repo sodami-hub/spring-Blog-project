@@ -1,0 +1,14 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html
+
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    type: com.zaxxer.hikari.HikariDataSource
+#    url: jdbc:mysql://localhost:3306/jpa_lecture
+#    username: root
+#    password: root
+#  flyway:
+#    enabled: false
+
+logging:
+  config: classpath:logback-local.xml
