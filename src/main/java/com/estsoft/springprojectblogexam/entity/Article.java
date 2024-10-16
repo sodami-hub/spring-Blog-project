@@ -1,5 +1,6 @@
 package com.estsoft.springprojectblogexam.entity;
 
+import com.estsoft.springprojectblogexam.entity.dto.ArticleResponseDTO;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,7 +9,6 @@ import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 public class Article {
     @Id
@@ -28,4 +28,16 @@ public class Article {
         this.title=title;
         this.content =content;
     }
+
+    public ArticleResponseDTO convert() {
+        return new ArticleResponseDTO(this.getId(),this.getTitle(),this.getContent());
+    }
+
+    // update를 위한 메소드 setter 사용은 지양함
+    public void update(String title, String content) {
+        if(!title.isBlank()) this.title=title;
+        if(!content.isBlank()) this.content=content;
+    }
+
+
 }

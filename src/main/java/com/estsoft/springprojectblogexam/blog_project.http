@@ -19,3 +19,23 @@ Content-Type: application/json
   "content" : "nothing content"
 }
 
+### Article 조회
+GET localhost:8080/articles
+Content-Type: application/json
+
+### Article 단건 조회
+GET localhost:8080/articles/100
+Content-Type: application/json
+
+### Article 단건 삭제
+DELETE localhost:8080/articles/1
+
+### Article 수정
+PUT localhost:8080/articles/2
+Content-Type: application/json
+
+{
+  "title": "only update title"
+}
+
+
