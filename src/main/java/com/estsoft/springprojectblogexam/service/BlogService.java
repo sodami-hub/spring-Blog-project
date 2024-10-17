@@ -45,6 +45,8 @@ public class BlogService {
     @Transactional // 모든 과정이 성공하면 commit 중간에 문제가 발생(RuntimeException)하면 rollback
     public Article update(Long id, ArticleUpdateDTO updateDTO) {
         Article article = findBy(id); // 수정하고자 하는 row (Article 객체) 가져옴
+
+        /*
         String title;
         String content;
 
@@ -58,8 +60,8 @@ public class BlogService {
         }else {
             content = updateDTO.getContent();
         }
-
-        article.update(title,content);
+        */
+        article.update(updateDTO.getTitle(),updateDTO.getContent());
 
         return article;
     }

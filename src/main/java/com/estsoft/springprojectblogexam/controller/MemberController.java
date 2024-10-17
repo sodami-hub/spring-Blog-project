@@ -19,13 +19,13 @@ public class MemberController {
         this.memberService=service;
     }
 
-    @GetMapping("/members")
+    @GetMapping("/api/members")
     public List<Member> getAllMembers() {
         // member 목록 불러오기
         return memberService.getAllMembers();
     }
 
-    @PostMapping("/member")
+    @PostMapping("/api/member")
     public Member saveMember(@RequestBody Member member) {
 
         // member 정보를 저장하는 서비스 코드 호출

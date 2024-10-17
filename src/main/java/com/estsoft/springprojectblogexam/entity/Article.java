@@ -5,11 +5,16 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)  // createdAt, updatedAt을 위한(변화감지) 감지하는 entity에 추가.
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +26,19 @@ public class Article {
 
     @Column(name="content", nullable = false)
     private String content;
+
+    // main 클래스에 @EnableJpaAuditing 이 활성화 필요!! row의 변경 및 생성을 Jpa가 감시 및 감지
+    // row가 추가된 것을 감지하고 시간 값을 자동 할당. @EnableJpaAudi
+    @CreatedDate
+    @Column(name="created_at")
+    private LocalDateTime createdAt;
+
+
+    // row의 업데이트를 감지하고 그 값을 넣어줌
+    @LastModifiedDate
+    @Column(name="updated_at")
+    private LocalDateTime updatedAt;
+
 
     // 호출하는 매개변수에 따른 생성자 자동 생성
     @Builder

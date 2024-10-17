@@ -1,17 +1,17 @@
 ### member list 불러오기
-GET localhost:8080/members
+GET localhost:8080/api/members
 Content-Type: application/json
 
 ### member 등록하기
-POST localhost:8080/member
+POST localhost:8080/api/member
 Content-Type: application/json
 
 {
   "name": "이해든"
 }
-
+k
 ### Article 저장
-POST localhost:8080/articles
+POST localhost:8080/api/articles
 Content-Type: application/json
 
 {
@@ -20,18 +20,18 @@ Content-Type: application/json
 }
 
 ### Article 조회
-GET localhost:8080/articles
+GET localhost:8080/api/articles
 Content-Type: application/json
 
 ### Article 단건 조회
-GET localhost:8080/articles/100
+GET localhost:8080/api/articles/2
 Content-Type: application/json
 
 ### Article 단건 삭제
-DELETE localhost:8080/articles/1
+DELETE localhost:8080/api/articles/1
 
 ### Article 수정
-PUT localhost:8080/articles/2
+PUT localhost:8080/api/articles/2
 Content-Type: application/json
 
 {
