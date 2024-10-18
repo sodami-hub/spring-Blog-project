@@ -97,9 +97,11 @@ public class BlogController {
 
     //(Illegal...) 괄호 안의 예외 발생시 실행되는 메소드
     // Exception이 많아지면 요것만 모아놓는 클래스를 따로 만든다.
+
+    /* GlobalExceptionHandler로 통합
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()); // reason : " "
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()); //
     }
-
+*/
 }
