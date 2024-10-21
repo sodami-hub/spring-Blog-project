@@ -3,13 +3,20 @@ package com.estsoft.springprojectblogexam.controller.viewcontroller;
 import com.estsoft.springprojectblogexam.entity.Article;
 import com.estsoft.springprojectblogexam.entity.dto.ArticleViewResponseDTO;
 import com.estsoft.springprojectblogexam.service.BlogService;
+import com.estsoft.springprojectblogexam.user.entity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.AuthenticatedPrincipal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -38,7 +45,13 @@ public class BlogPageController {
     }
 
     @GetMapping("/articles/{id}")
-    public String showArticle(Model model, @PathVariable Long id) {
+    public String showArticle(Model model, @PathVariable Long id, @AuthenticationPrincipal Users users) {
+        // @AuthenticationPrincipal로 Users객체를 받으면 Users객체에 대한 내용만 조회가 됨
+
+        // 권한 및 인증에 대한 조회 아래와 같이 하면 권한부분까지 조회가 가능
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Users principal = (Users) authentication.getPrincipal();
+
         Article article = service.findBy(id);
 
         ArticleViewResponseDTO responseDTO = new ArticleViewResponseDTO(article);
