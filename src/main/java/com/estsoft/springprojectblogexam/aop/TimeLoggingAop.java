@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 public class TimeLoggingAop {
     //특정 method() 호출했을 때, method의 수행 시간 측정
 
+    //book 패키지 아래에 있는 메소드 호출될 때.
     @Around("execution(* com.estsoft.springprojectblogexam.book..*(..))")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTimeMs = System.currentTimeMillis();
