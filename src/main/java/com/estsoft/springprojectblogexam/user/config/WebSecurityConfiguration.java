@@ -27,7 +27,8 @@ public class WebSecurityConfiguration {
     public WebSecurityCustomizer ignore() {
         return webSecurity -> webSecurity.ignoring()
                 .requestMatchers(toH2Console())  // /h2-console 요청에 대해서는 login 화면 나오지 않도록 함.
-                .requestMatchers("/static/**");
+                // swagger 에 대한 것도 스프링 시큐리티 타지 않도록 함
+                .requestMatchers("/static/**","/swagger-ui/**","/v3/api-docs/**","/swagger-ui.html");
     }
 
     // 패스워드 인코더로 사용할 빈을 등록
