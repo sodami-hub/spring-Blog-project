@@ -62,12 +62,16 @@ public class WebSecurityConfiguration {
          */
 
         httpSecurity.authorizeHttpRequests(auth ->              // 인증, 인가 설정
+                        // login, signup, user 는 누구나 접근 가능
                         auth.requestMatchers("/login", "/signup", "/user").permitAll()
+                                // articlse/** 에 접근하려면 ROLE_ADMIN 권한이 있어야 됨 - 기본 user권한으로는 403 Error 발생
+                                .requestMatchers("/articles/**").hasRole("ADMIN")   //hasRole 은 ADMIN 앞에 ROLE_(ROLE_ADMIN) 프리픽스를 붙임
+                                .requestMatchers("/articles/**").hasAuthority("user") // user Role 가진 user
                                 .anyRequest().authenticated())
                         .formLogin(auth -> auth.loginPage("/login")     // 폼 기반 로그인 설정
-                                .defaultSuccessUrl("/articles"))
+                                .defaultSuccessUrl("/articles",true)) // login 이후 queryparameter 에 ?continue가 붙는거 방지
                         .logout(auth -> auth.logoutSuccessUrl("/login") // 로그아웃 설정
-                                .invalidateHttpSession(true));
+                                .invalidateHttpSession(true)); // 세션을 모두 삭제(로그아웃 할 때)
                         //.csrf(auth -> auth.disable());                  // csrf 비활성화
         return httpSecurity.build();
 

@@ -36,18 +36,15 @@ public class Users implements UserDetails {
         this.password = password;
     }
 
-
-
     // UserDetails 인터페이스의 구현
 
     // 사용자의 (접근)권한 정보(인가와 관련된 정보)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // ROLE_ADMIN,
-        return List.of(new SimpleGrantedAuthority("user")); // 새싹, 주니어, 시니어, ... ,  관리자
+        return List.of(new SimpleGrantedAuthority("user"), new SimpleGrantedAuthority("ROLE_ADMIN")); // 새싹, 주니어, 시니어, ... ,  관리자
         // 롤 이름을 정의하고 서버의 api 접근 여부를 각각 설정
     }
-
 
     // 사용자의 인증(로그인)에 필요한 정보
     @Override
