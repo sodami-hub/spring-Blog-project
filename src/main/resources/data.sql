@@ -1,4 +1,4 @@
--- h2 database 초기 입력값 설정
+-- h2 database 사용시 초기 입력값 설정
 insert into member(name) values ('lee'),('hong'),('최');
 
 insert into article(title,content,created_at,updated_at) values ('title1','content1',now(),now());
