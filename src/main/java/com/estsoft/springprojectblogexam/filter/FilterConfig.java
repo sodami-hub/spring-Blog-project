@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FilterConfig {
 
-    @Bean
+    //@Bean
     public FilterRegistrationBean<Filter> firstFilter() {
         FilterRegistrationBean<Filter> filter = new FilterRegistrationBean<>();
 
@@ -18,7 +18,7 @@ public class FilterConfig {
         return filter;
     }
 
-    @Bean
+    //@Bean
     public FilterRegistrationBean<Filter> secondFilter() {
         FilterRegistrationBean<Filter> filter = new FilterRegistrationBean<>();
 
