@@ -15,7 +15,9 @@
     <button type="button" id="create-btn" th:onclick="|location.href='@{/new-article}'|"
             class ="btn btn-secondary btn-sm mb-3">글 등록</button>
     <button type="button" id="external-api-btn" th:onclick="|location.href='@{/api/external}'|"
-            class ="btn btn-secondary btn-sm mb-3">call External Api</button>
+            class ="btn btn-secondary btn-sm mb-3">call External Api - article</button>
+    <button type="button" id="external-api-comment-btn" th:onclick="|location.href='@{/api/external/comment}'|"
+            class ="btn btn-secondary btn-sm mb-3">call External Api - comment</button>
     <button type="button" class="btn btn-secondary" onclick="location.href='/logout'">로그아웃</button>
     <div class="row-6" th:each="article :${articles}">  <!-- articles 갯수 만큼 반복 -->
         <div class="card">

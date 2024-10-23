@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,20 +18,12 @@ import java.util.List;
 @NoArgsConstructor
 @Schema(description = "블로그 조회 결과")  // swagger의 스키마에 적용되는 description
 public class ArticleResponseDTO {
-    @Schema(description = "게시글 ID", type = "Long")
+    @Schema(description = "게시글 ID", type = "Long") // swagger에 적용됨
     private Long id;
-
-    @Schema(description = "게시글 제목", type = "String")
     private String title;
-
-    @Schema(description = "게시글 내용", type = "String")
     private String content;
-
     private LocalDateTime createdAt;
-
     private LocalDateTime updatedAt;
-
-    private List<CommentListDTO> commentList;
 
     public ArticleResponseDTO(Long id, String title, String content) {
         this.id = id;

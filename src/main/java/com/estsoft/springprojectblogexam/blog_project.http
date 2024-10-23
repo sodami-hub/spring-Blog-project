@@ -1,22 +1,10 @@
 
-### member list 불러오기
-GET localhost:8080/api/members
-Content-Type: application/json
-
-### member 등록하기
-POST localhost:8080/api/member
-Content-Type: application/json
-
-{
-  "name": "이해든"
-}
-k
 ### Article 저장
 POST localhost:8080/api/articles
 Content-Type: application/json
 
 {
-  "title" : "blog test",
+  "title" : "saveasaev",
   "content" : "yes"
 }
 
@@ -32,11 +20,12 @@ Content-Type: application/json
 DELETE localhost:8080/api/articles/1
 
 ### Article 수정
-PUT localhost:8080/api/articles/2
+PUT localhost:8080/api/articles/4
 Content-Type: application/json
 
 {
-  "title": "only update title"
+  "title": "only update title",
+  "content" : "update update"
 }
 
 ### Article과 Comment 함께 조회

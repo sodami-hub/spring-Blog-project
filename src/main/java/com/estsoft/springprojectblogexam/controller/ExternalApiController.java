@@ -1,8 +1,12 @@
 package com.estsoft.springprojectblogexam.controller;
 
+import com.estsoft.springprojectblogexam.entity.Article;
 import com.estsoft.springprojectblogexam.entity.dto.ArticleRequestDTO;
+import com.estsoft.springprojectblogexam.entity.dto.CommentRequestDTO;
 import com.estsoft.springprojectblogexam.entity.dto.ExternalAPIDTO;
+import com.estsoft.springprojectblogexam.entity.dto.ExternalCommentDTO;
 import com.estsoft.springprojectblogexam.service.BlogService;
+import com.estsoft.springprojectblogexam.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -22,7 +26,9 @@ import java.util.Objects;
 public class ExternalApiController {
 
     @Autowired
-    BlogService service;
+    BlogService blogService;
+    @Autowired
+    CommentService commentService;
 
     // RestTemplate을 사용해서 외부 API를 호출해서 데이터를 가져오기.
     @GetMapping("/api/external")
@@ -46,10 +52,29 @@ public class ExternalApiController {
             ArticleRequestDTO requestDTO = new ArticleRequestDTO();
             requestDTO.setTitle(externalAPIDTO.getTitle());
             requestDTO.setContent(externalAPIDTO.getBody());
-            service.saveArticle(requestDTO);
+            blogService.saveArticle(requestDTO);
         }
 
-        model.addAttribute("articles", service.findAll());
+        model.addAttribute("articles", blogService.findAll());
+        return "articleList";
+    }
+
+    @GetMapping("/api/external/comment")
+    public String callApi02(Model model) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "https://jsonplaceholder.typicode.com/comments";
+
+        ResponseEntity<List<ExternalCommentDTO>> dtoList =
+                restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<>(){});
+
+        for (ExternalCommentDTO dto : Objects.requireNonNull(dtoList.getBody()) ) {
+            CommentRequestDTO requestDTO = new CommentRequestDTO();
+            requestDTO.setBody(dto.getBody());
+            Article article = blogService.findBy(dto.getPostId());
+            requestDTO.setArticle(article);
+            commentService.saveComment(requestDTO);
+        }
+        model.addAttribute("articles", blogService.findAll());
         return "articleList";
     }
 }

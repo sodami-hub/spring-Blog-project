@@ -2,7 +2,7 @@ package com.estsoft.springprojectblogexam.service;
 
 import com.estsoft.springprojectblogexam.entity.Article;
 import com.estsoft.springprojectblogexam.entity.Comment;
-import com.estsoft.springprojectblogexam.entity.dto.ArticleResponseDTO;
+import com.estsoft.springprojectblogexam.entity.dto.ArticleAndCommentResponseDTO;
 import com.estsoft.springprojectblogexam.entity.dto.CommentListDTO;
 import com.estsoft.springprojectblogexam.entity.dto.CommentRequestDTO;
 import com.estsoft.springprojectblogexam.repository.BlogRepository;
@@ -31,7 +31,7 @@ public class CommentService {
     }
 
     public Comment updateBy(Long id, CommentRequestDTO dto) {
-        Comment comment = findBy(id);
+        Comment comment = findBy(id);   // update를 하는데 해당 id가 없으면 Exception 발생 (4xx ... )
         comment.update(dto.getBody());
         return commentRepository.save(comment);
     }
@@ -40,13 +40,11 @@ public class CommentService {
         commentRepository.deleteById(id);
     }
 
-    public ArticleResponseDTO searchArticleAndComment(Long articleId) {
+    public ArticleAndCommentResponseDTO searchArticleAndComment(Long articleId) {
         Article article = blogRepository.findById(articleId).orElseThrow(()->new IllegalArgumentException("not found id/ id :"+articleId));
         List<Comment> commentList = commentRepository.findCommentsByArticleId(article.getId());
-
         List<CommentListDTO> commentListDTOS = commentList.stream().map(Comment::convertCommentListDTO).toList();
-
-        ArticleResponseDTO responseDTO = new ArticleResponseDTO(article);
+        ArticleAndCommentResponseDTO responseDTO = new ArticleAndCommentResponseDTO(article);
         responseDTO.setCommentList(commentListDTOS);
         return responseDTO;
     }

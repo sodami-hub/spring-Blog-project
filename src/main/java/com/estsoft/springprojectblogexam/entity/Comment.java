@@ -2,12 +2,14 @@ package com.estsoft.springprojectblogexam.entity;
 
 import com.estsoft.springprojectblogexam.entity.dto.CommentListDTO;
 import com.estsoft.springprojectblogexam.entity.dto.CommentResponseDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -33,6 +35,8 @@ public class Comment {
     private String body;
 
     @CreatedDate
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm.ss")
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
     @Column(name ="created_at")
     private LocalDateTime createdAt;
 
@@ -42,7 +46,7 @@ public class Comment {
     }
 
     public CommentResponseDTO convertResponseDTO() {
-        return new CommentResponseDTO(id, body,createdAt, article);
+        return new CommentResponseDTO(id, body,createdAt, article.getId());
     }
 
     public void update(String body) {

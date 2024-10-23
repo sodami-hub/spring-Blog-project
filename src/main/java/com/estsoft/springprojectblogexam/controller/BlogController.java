@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Tag(name = "블로그 저장/수정/삭제/조회 API", description ="API 설명을 이곳에 작성") // swagger에 들어갈 이름
+@Tag(name = "블로그 게시글 저장/수정/삭제/조회 API", description ="게시글 관련 API") // swagger에 들어갈 이름
 @Slf4j // logging 객체 생성(롬복)
 @RestController
 //@RequestMapping("/api")  프리픽스 앞에다 붙이는거 한번에 처리

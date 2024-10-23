@@ -16,20 +16,20 @@ public class CommentResponseDTO {
     private Long id;
     private String body;
     private LocalDateTime createdAt;
-    private Article article;
-    private List<Comment> commentList;
+    private Long articleId;
+    //private List<Comment> commentList;
 
-    public CommentResponseDTO(Long id, String body, LocalDateTime time, Article article) {
+    public CommentResponseDTO(Long id, String body, LocalDateTime time, Long articleId) {
         this.id=id;
         this.body=body;
         this.createdAt=time;
-        this.article=article;
+        this.articleId=articleId;
     }
 
     public CommentResponseDTO(Comment comment) {
         this.id = comment.getId();
         this.body = comment.getBody();
         this.createdAt = comment.getCreatedAt();
-        this.article = comment.getArticle();
+        this.articleId = comment.getArticle().getId();
     }
 }

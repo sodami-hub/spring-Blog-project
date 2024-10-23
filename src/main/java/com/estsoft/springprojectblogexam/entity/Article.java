@@ -1,6 +1,7 @@
 package com.estsoft.springprojectblogexam.entity;
 
 import com.estsoft.springprojectblogexam.entity.dto.ArticleResponseDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -56,7 +58,7 @@ public class Article {
     }
 
     public ArticleResponseDTO convert() {
-        return new ArticleResponseDTO(this.id,this.title,this.content);
+        return new ArticleResponseDTO(this);
     }
 
     // update를 위한 메소드 setter 사용은 지양함
