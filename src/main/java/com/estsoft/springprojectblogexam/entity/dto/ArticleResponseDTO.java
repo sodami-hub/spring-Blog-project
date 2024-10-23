@@ -2,6 +2,7 @@ package com.estsoft.springprojectblogexam.entity.dto;
 
 import com.estsoft.springprojectblogexam.entity.Article;
 import com.estsoft.springprojectblogexam.entity.Comment;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +12,10 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import static com.estsoft.springprojectblogexam.util.DateFormatUtil.formatter;
 
 @Getter
 @Setter
@@ -22,20 +26,17 @@ public class ArticleResponseDTO {
     private Long id;
     private String title;
     private String content;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-
-    public ArticleResponseDTO(Long id, String title, String content) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-    }
+    private String createdAt;
+    private String updatedAt;
 
     public ArticleResponseDTO(Article article) {
+        // util package로 공용으로 전환
+        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
+
         this.id = article.getId();
         this.title= article.getTitle();
         this.content =article.getContent();
-        this.createdAt=article.getCreatedAt();
-        this.updatedAt=article.getUpdatedAt();
+        this.createdAt=article.getCreatedAt().format(formatter);
+        this.updatedAt=article.getUpdatedAt().format(formatter);
     }
 }
