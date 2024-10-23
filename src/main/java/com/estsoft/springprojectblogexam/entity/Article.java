@@ -5,20 +5,23 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)  // createdAt, updatedAt을 위한(변화감지) 감지하는 entity에 추가.
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", updatable = false)
+    @Column(name="article_id", updatable = false)
     private Long id;
 
     @Column(name="title", nullable = false)
@@ -40,6 +43,11 @@ public class Article {
     private LocalDateTime updatedAt;
 
 
+    @Transient
+    private List<Comment> commentList;
+
+
+
     // 호출하는 매개변수에 따른 생성자 자동 생성
     @Builder
     public Article(String title, String content) {
@@ -48,7 +56,7 @@ public class Article {
     }
 
     public ArticleResponseDTO convert() {
-        return new ArticleResponseDTO(this.getId(),this.getTitle(),this.getContent());
+        return new ArticleResponseDTO(this.id,this.title,this.content);
     }
 
     // update를 위한 메소드 setter 사용은 지양함

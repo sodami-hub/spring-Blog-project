@@ -12,10 +12,12 @@ import java.util.List;
 @Service
 public class BlogService {
 
+    private final CommentService commentService;
     BlogRepository blogRepository;
 
-    BlogService(BlogRepository repo) {
+    BlogService(BlogRepository repo, CommentService commentService) {
         this.blogRepository = repo;
+        this.commentService = commentService;
     }
 
     //blog 게시글 저장
@@ -62,7 +64,6 @@ public class BlogService {
         }
         */
         article.update(updateDTO.getTitle(),updateDTO.getContent());
-
         return article;
     }
 }
