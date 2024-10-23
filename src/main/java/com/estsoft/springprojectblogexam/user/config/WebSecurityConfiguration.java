@@ -26,9 +26,10 @@ public class WebSecurityConfiguration {
     @Bean
     public WebSecurityCustomizer ignore() {
         return webSecurity -> webSecurity.ignoring()
-                .requestMatchers(toH2Console())  // /h2-console 요청에 대해서는 login 화면 나오지 않도록 함.
+                //.requestMatchers(toH2Console())  // /h2-console 요청에 대해서는 login 화면 나오지 않도록 함.
                 // swagger 에 대한 것도 스프링 시큐리티 타지 않도록 함
-                .requestMatchers("/static/**","/swagger-ui/**","/v3/api-docs/**","/swagger-ui.html");
+                //.requestMatchers("/static/**","/swagger-ui/**","/v3/api-docs/**","/swagger-ui.html")
+                .anyRequest();
     }
 
     // 패스워드 인코더로 사용할 빈을 등록
@@ -62,18 +63,18 @@ public class WebSecurityConfiguration {
                 .build();
          */
 
-        httpSecurity.authorizeHttpRequests(auth ->              // 인증, 인가 설정
-                        // login, signup, user 는 누구나 접근 가능
-                        auth.requestMatchers("/login", "/signup", "/user").permitAll()
+        httpSecurity.authorizeHttpRequests(auth ->             // 인증, 인가 설정
+                                // login, signup, user 는 누구나 접근 가능
+                                    auth.requestMatchers("/login", "/signup", "/user").permitAll()
                                 // articlse/** 에 접근하려면 ROLE_ADMIN 권한이 있어야 됨 - 기본 user권한으로는 403 Error 발생
-                                .requestMatchers("/articles/**").hasRole("ADMIN")   //hasRole 은 ADMIN 앞에 ROLE_(ROLE_ADMIN) 프리픽스를 붙임
-                                .requestMatchers("/articles/**").hasAuthority("user") // user Role 가진 user
+                                //.requestMatchers("/articles/**").hasRole("ADMIN")   //hasRole 은 ADMIN 앞에 ROLE_(ROLE_ADMIN) 프리픽스를 붙임
+                                //.requestMatchers("/articles/**").hasAuthority("user") // user Role 가진 user
                                 .anyRequest().authenticated())
                         .formLogin(auth -> auth.loginPage("/login")     // 폼 기반 로그인 설정
                                 .defaultSuccessUrl("/articles",true)) // login 이후 queryparameter 에 ?continue가 붙는거 방지
                         .logout(auth -> auth.logoutSuccessUrl("/login") // 로그아웃 설정
-                                .invalidateHttpSession(true)); // 세션을 모두 삭제(로그아웃 할 때)
-                        //.csrf(auth -> auth.disable());                  // csrf 비활성화
+                                .invalidateHttpSession(true)) // 세션을 모두 삭제(로그아웃 할 때)
+                        .csrf(auth -> auth.disable());                  // csrf 비활성화
         return httpSecurity.build();
 
     }
