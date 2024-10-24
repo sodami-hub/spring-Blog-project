@@ -1,6 +1,4 @@
 package com.estsoft.springprojectblogexam.domain;
-
-import com.estsoft.springprojectblogexam.entity.Member;
 import jakarta.persistence.*;
 
 @Entity
